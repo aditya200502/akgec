@@ -1,0 +1,76 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int largest_idx,smallest_idx;
+bool isPrime(int num) 
+{ 
+    if (num <= 1) return false; 
+    for (int i = 2; i <= sqrt(num); ++i) 
+    { 
+        if (num % i == 0) return false; 
+        
+    } 
+    return true; 
+    
+}
+int largest_prime(vector<int>&arr)
+{
+    int num = 0;
+    for(int i =0;i<arr.size();i++)
+    {
+        if(isPrime(arr[i]) && num ==0 )
+        {
+            num = arr[i];
+            largest_idx = i;
+        }
+        
+        if(isPrime(arr[i]) && num !=0 && (num < arr[i]))
+        {
+            num = arr[i];
+            largest_idx = i;
+        }
+    }
+    return largest_idx;
+}
+
+int smallest_prime(vector<int>&arr)
+{
+    int num = 0;
+    for(int i =0;i<arr.size();i++)
+    {
+        if(isPrime(arr[i]) && num ==0 )
+        {
+            num = arr[i];
+            smallest_idx = i;
+        }
+        
+        if(isPrime(arr[i]) && num !=0 && (num > arr[i]))
+        {
+            num = arr[i];
+            smallest_idx = i;
+        }
+    }
+    return smallest_idx;
+}
+
+int main()
+{
+    vector<int>arr = {1,6, 4, 13, 9, 3};
+    int n = 6;
+    
+    sort(arr.rbegin(),arr.rend());
+    
+    int large_prime = largest_prime(arr);
+    
+    int small_prime = smallest_prime(arr);
+    
+    swap(arr[0],arr[largest_idx]);
+    
+    swap(arr[n-1],arr[smallest_idx]);
+    
+    for(int i=0;i<n;i++)
+    {
+        cout << arr[i] << " ";
+    }
+    return 0;
+}
